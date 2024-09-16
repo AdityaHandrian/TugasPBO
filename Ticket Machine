@@ -3,18 +3,18 @@ public class TicketMachine
     private int price;
     private int balance;
     private int total;
-    private boolean laMaquinaDaPremios;
-    private int numeroBilletesVendidos;
-    private int numeroMaximoBilletes;
+    private boolean givesPrizes;
+    private int ticketsSold;
+    private int maxTickets;
 
-    public TicketMachine(int cost, boolean daPremios, int maximoBilletes)
+    public TicketMachine(int cost, boolean givesPrizes, int maxTickets)
     {
         price = cost;
         balance = 0;
         total = 0;
-        laMaquinaDaPremios = daPremios;
-        numeroBilletesVendidos = 0;
-        numeroMaximoBilletes = maximoBilletes;
+        this.givesPrizes = givesPrizes;
+        this.ticketsSold = 0;
+        this.maxTickets = maxTickets;
     }
 
     public int getPrice()
@@ -30,7 +30,7 @@ public class TicketMachine
     public void insertMoney(int amount)
     {
         if(amount > 0) {
-            balance = balance + amount;
+            balance += amount;
         }
         else {
             System.out.println("Use a positive amount rather than: " + amount);
@@ -39,7 +39,7 @@ public class TicketMachine
 
     public void printTicket()
     {
-        if (numeroBilletesVendidos < numeroMaximoBilletes) {
+        if (ticketsSold < maxTickets) {
             if(balance >= price) {
                 System.out.println("##################");
                 System.out.println("# The BlueJ Line");
@@ -48,15 +48,15 @@ public class TicketMachine
                 System.out.println("##################");
                 System.out.println();
 
-                total = total + price;
-                balance = balance - price;
+                total += price;
+                balance -= price;
                 
-                numeroBilletesVendidos = numeroBilletesVendidos + 1;
+                ticketsSold++;
                 
-                if (laMaquinaDaPremios == true) {
+                if (givesPrizes) {
                     System.out.println("##################");
                     System.out.println("# The BlueJ Line");
-                    System.out.println("# Ticket de regalo");
+                    System.out.println("# Prize Ticket");
                     System.out.println("##################");
                     System.out.println();
                 }
@@ -68,14 +68,13 @@ public class TicketMachine
             }
         }
         else {
-            System.out.println("Vendidos todos los billetes disponibles.");
+            System.out.println("All available tickets have been sold.");
         }
     }
 
     public int refundBalance()
     {
-        int amountToRefund;
-        amountToRefund = balance;
+        int amountToRefund = balance;
         balance = 0;
         return amountToRefund;
     }
